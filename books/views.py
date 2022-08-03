@@ -29,7 +29,6 @@ class OrderListView(ListView):
     fields = '__all__'
 
 
-
 def order_done(request):
     if request.method == 'POST':
         print(request.POST)
