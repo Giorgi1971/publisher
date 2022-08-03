@@ -30,6 +30,16 @@ class OrderListView(ListView):
     fields = '__all__'
 
 
+class SaleListView(ListView):
+    model = Sale
+
+
+# Only This Store Books must be showed with this Store quantity
+class SaleCreateView(CreateView):
+    model = Sale
+    fields = '__all__'
+
+
 def order_done(request):
     if request.method == 'POST':
         order = Order.objects.get(pk=request.POST['q'])

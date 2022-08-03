@@ -9,26 +9,36 @@
         </ul>
     {% endif %}
 
+
     <h3>
-        Order List:
+        Sale List:
     </h3>
 
     <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Description</th>
+            <th scope="col">Book</th>
+            <th scope="col">Store</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Oder Status ????</th>
+        </tr>
+        </thead>
         <tbody>
         {% for i in object_list %}
             <tr>
             <th scope="row">{{ i.pk }}</th>
             <td>{{ i }}</td>
-            <td>{{ i.order_quantity }}</td>
-            <td>{{ i.order_date }}</td>
-            <td>{{ i.status }}</td>
-            {% csrf_token %}
+            <td>{{ i.book }}</td>
+            <td>{{ i.store }}</td>
+            <td>{{ i.sales_quantity }}</td>
             <td>
                 {% if user.is_authenticated %}
-                    <form action="{% url 'order_done' %}" method="POST">
+                    <form action="#" method="POST">
                         {% csrf_token %}
                         <input type="hidden" value="{{ i.pk }}" name="q">
-                        <input type="submit" value="{{ i.status }}">
+                        <input type="submit" value="Sale">
                     </form>
                 {% else %}
                     {{ i.status }}
@@ -36,16 +46,6 @@
             </td>
         {% endfor %}
         </tbody>
-        <thead>
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col">TITLE</th>
-            <th scope="col">Quantity</th>
-            <th scope="col">Date</th>
-            <th scope="col">Oder Status</th>
-            <th scope="col">Oder Status</th>
-        </tr>
-        </thead>
     </table>
 
 
