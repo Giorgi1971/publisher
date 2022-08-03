@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h3>
+        Purchase Book:
+    </h3>
+    <form class="form-control" method="post">{% csrf_token %}
+        <div class="form-control">
+            {{ form.as_p }}
+        </div>
+        <input class="form-control" type="submit" value="Save">
+    </form>
+{% endblock %}

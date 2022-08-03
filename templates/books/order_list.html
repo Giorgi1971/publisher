@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h3>
+        Orders:
+    </h3>
+    <table></table>
+    <ol>
+    {% for i in object_list %}
+        <li>
+            {{ i }} --- {{ i.order_quantity }} pcs
+        <ul>
+            <li>
+                Date: {{ i.order_date }}
+            </li>
+        </ul>
+        </li>
+    {% endfor %}
+    </ol>
+{% endblock %}

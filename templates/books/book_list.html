@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+<table style="width:100%">
+  <tr>
+    <th>Book</th>
+    <th>ISBN</th>
+    <th>Publisher</th>
+    <th>Quantity</th>
+  </tr>
+            {% for i in object_list %}
+  <tr>
+    <td>{{ i }}</td>
+    <td>{{ i.isbn}}</td>
+    <td>{{ i.publisher}}</td>
+    <td>{{ i.quantity }}</td>
+  </tr>
+            {% endfor %}
+</table>
+{% endblock %}
