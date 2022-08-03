@@ -4,6 +4,7 @@ from django.views.generic import ListView
 from django.views.generic.edit import CreateView
 from .forms import *
 from .models import Book, Order
+from django.contrib import messages
 
 
 def home(request):
@@ -31,14 +32,17 @@ class OrderListView(ListView):
 
 def order_done(request):
     if request.method == 'POST':
-        print(request.POST)
         order = Order.objects.get(pk=request.POST['q'])
-        print(order)
+        if order.status == 'D':
+            messages.add_message(request, messages.WARNING, 'This order already DONE!')
+            return HttpResponseRedirect(reverse('orders'))
+
         book = Book.objects.get(isbn__exact=order.book.isbn)
+        if book.quantity - order.order_quantity < 0:
+            messages.add_message(request, messages.INFO, f'only {book.quantity} books stayed')
+            return HttpResponseRedirect(reverse('orders'))
         book.quantity -= order.order_quantity
-        print(book)
         book.save()
         order.status = 'D'
         order.save()
-        print(order.status)
     return HttpResponseRedirect(reverse('orders'))

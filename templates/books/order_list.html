@@ -1,30 +1,49 @@
 {% extends 'base.html' %}
 {% block content %}
+
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+
     <h3>
         Order List:
     </h3>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="text-danger fw-bolder">
+                {{ message }}
+
+            </div>
+        {% endfor %}
+    {% endif %}
 
     <table class="table">
         <tbody>
         {% for i in object_list %}
             <tr>
-                <th scope="row">{{ i.pk }}</th>
-                <td>{{ i }}</td>
-                <td>{{ i.order_quantity }}</td>
-                <td>{{ i.order_date }}</td>
-                <td>{{ i.status }}</td>
-                {% csrf_token %}
-                <td>
-                    {% if user.is_authenticated %}
-                        <form action="{% url 'order_done' %}" method="POST">
-                            {% csrf_token %}
-                            <input type="hidden" value="{{ i.pk }}" name="q">
-                            <input type="submit" value="{{ i.status }}">
-                        </form>
-                    {% else %}
-                        {{ i.status }}
-                    {% endif %}
-                </td>
+            <th scope="row">{{ i.pk }}</th>
+            <td>{{ i }}</td>
+            <td>{{ i.order_quantity }}</td>
+            <td>{{ i.order_date }}</td>
+            <td>{{ i.status }}</td>
+            {% csrf_token %}
+            <td>
+                {% if user.is_authenticated %}
+                    <form action="{% url 'order_done' %}" method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" value="{{ i.pk }}" name="q">
+                        <input type="submit" value="{{ i.status }}">
+                    </form>
+                {% else %}
+                    {{ i.status }}
+                {% endif %}
+            </td>
         {% endfor %}
         </tbody>
         <thead>
@@ -37,7 +56,7 @@
             <th scope="col">Oder Status</th>
         </tr>
         </thead>
-            </table>
+    </table>
 
 
 {% endblock %}
