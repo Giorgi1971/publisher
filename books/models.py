@@ -107,4 +107,3 @@ class Sale(models.Model):
     @staticmethod
     def get_absolute_url():
         return reverse('sales')
-
